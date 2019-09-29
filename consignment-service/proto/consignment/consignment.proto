@@ -1,0 +1,38 @@
+// shippy-service-consignment/proto/consignment/consignment.proto
+syntax = "proto3";
+
+package consignment; 
+
+
+//the service contains methods we would like to expose to other services
+//we define this so we can use RPC
+//SERVICES ARE HANDLED BY A gRPC PROTOBUF PLUGIN 
+//THE PLUGIN HELPS COMPILE CODE TO INTERACT WITH THESE TYPES SUCH AS THE 
+//SERVICE HERE IN OUR PROTO FILE
+service ShippingService {
+  rpc CreateConsignment(Consignment) returns (Response) {}
+}
+
+
+//messages are custom types 
+//here we define our messages 
+//MESSAGES ARE HANDLED BY PROTOBUF
+message Consignment {
+  string id = 1;
+  string description = 2;
+  int32 weight = 3;
+  repeated Container containers = 4;
+  string vessel_id = 5;
+}
+
+message Container {
+  string id = 1;
+  string customer_id = 2;
+  string origin = 3;
+  string user_id = 4;
+}
+
+message Response {
+  bool created = 1;
+  Consignment consignment = 2;
+}
