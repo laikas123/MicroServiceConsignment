@@ -69,13 +69,21 @@ func (s *service) CreateConsignment(ctx context.Context, req *pb.Consignment) (*
 
 func main() {
 
+
+	//create a pointer to a new empty(defaults to nil fields)
+	//Repository struct
 	repo := &Repository{}
 
 	// Set-up our gRPC server.
+	//create a tcp server listening with port
+	//50051
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
+
+	//NewServer creates a gRPC server which has no service 
+	//registered and has not started to accept requests yet.
 	s := grpc.NewServer()
 
 	// Register our service with the gRPC server, this will tie our
